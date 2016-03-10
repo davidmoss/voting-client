@@ -2,7 +2,7 @@
   "name": "voting-client",
   "version": "1.0.0",
   "description": "Voting client to make your votes",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
@@ -39,6 +39,9 @@
   "dependencies": {
     "immutable": "^3.7.6",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-addons-pure-render-mixin": "^0.14.7",
+    "react-addons-test-utils": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0"
   }
 }

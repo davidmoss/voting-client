@@ -1,4 +1,7 @@
-var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
+var precss       = require('precss');
+var webpack      = require('webpack');
+
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/src/index.html',
@@ -17,6 +20,9 @@ module.exports = {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'react-hot!babel'
+    },{
+      test: /\.css?$/,
+      loader: 'style-loader!css-loader!postcss-loader'
     }]
   },
   resolve: {
@@ -30,6 +36,9 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true
+  },
+  postcss: function () {
+    return [autoprefixer, precss];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

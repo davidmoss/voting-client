@@ -26,6 +26,12 @@ function resetVote(state) {
   }
 }
 
+function setConnection(state, connectionState, connected) {
+  return state.set('connection', Map({
+    state: connectionState, connected
+  }));
+}
+
 export default function(state = Map(), action) {
   switch(action.type) {
     case 'SET_CLIENT_ID':
@@ -34,6 +40,8 @@ export default function(state = Map(), action) {
       return resetVote(setState(state, action.state));
     case 'VOTE':
       return vote(state, action.entry);
+    case 'SET_CONNECTION_STATUS':
+      return setConnection(state, action.state, action.connected);
   }
   return state;
 }

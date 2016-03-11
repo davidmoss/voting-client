@@ -1,3 +1,11 @@
+export function setConnectionStatus(state, connected) {
+  return {
+    type: 'SET_CONNECTION_STATUS',
+    state,
+    connected
+  };
+}
+
 export function setClientId(clientId) {
   return {
     type: 'SET_CLIENT_ID',

@@ -107,9 +107,10 @@ body {
 }
 
 .results .management button {
-  border: 0;
+  border: 1px grey solid;
   background-color: black;
   color: #aaa;
+  width: 50%;
 }
 .results .management .next {
   flex: 1;

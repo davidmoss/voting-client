@@ -1,14 +1,15 @@
 import {List, Map} from 'immutable';
 
 function setState(state, newState) {
-  return state.merge(newState);
+  return state.remove('winner')
+              .merge(newState);
 }
 
 function vote(state, entry) {
   const currentPair = state.getIn(['vote', 'pair']);
   if(currentPair && currentPair.includes(entry)){
     return state.set('myVote', Map({
-      round: state.getIn(['vote', 'round']),
+      round: state.get('round'),
       entry
     }));
   } else {
@@ -17,7 +18,7 @@ function vote(state, entry) {
 }
 
 function resetVote(state) {
-  const currentRound = state.getIn(['vote', 'round']);
+  const currentRound = state.get('round');
   const votedRound = state.getIn(['myVote', 'round']);
   if (currentRound !== votedRound){
     return state.remove('myVote');

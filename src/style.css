@@ -130,6 +130,8 @@ body {
 /* Winner View */
 
 .winner {
+  flex: 1;
+  
   font-size: 4rem;
   text-align: center;
 }

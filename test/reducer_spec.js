@@ -102,8 +102,8 @@ describe('reducer', () => {
       vote: {
         pair: ['Trainspotting', '28 Days Later'],
         tally: {Trainspotting: 1},
-        round: 1
       },
+      round: 1,
       myVote: {
         round: 1,
         entry: 'Trainspotting'
@@ -114,8 +114,8 @@ describe('reducer', () => {
       state: {
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
-          round: 2
-        }
+        },
+        round: 2
       }
     };
     const nextState = reducer(initialState, action);
@@ -123,8 +123,42 @@ describe('reducer', () => {
     expect(nextState).to.equal(fromJS({
       vote: {
         pair: ['Trainspotting', '28 Days Later'],
+      },
+      round: 2
+    }));
+  });
+
+  it('handles SET_STATE when restarted from winner', () => {
+    const initialState = fromJS({
+      vote: {
+        pair: ['Trainspotting', '28 Days Later'],
+        tally: {Trainspotting: 1},
+      },
+      round: 1,
+      myVote: {
+        round: 1,
+        entry: 'Trainspotting'
+      },
+      winner: 'Trainspotting'
+    });
+    const action = {
+      type: 'SET_STATE',
+      state: {
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {Trainspotting: 1}
+        },
         round: 2
-      }
+      },
+    };
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      vote: {
+        pair: ['Trainspotting', '28 Days Later'],
+        tally: {Trainspotting: 1}
+      },
+      round: 2
     }));
   });
 
@@ -133,8 +167,8 @@ describe('reducer', () => {
       vote: {
         pair: ['Trainspotting', '28 Days Later'],
         tally: {Trainspotting: 1},
-        round: 1
-      }
+      },
+      round: 1
     });
     const action = {type: 'VOTE', entry: 'Trainspotting'};
     const nextState = reducer(state, action);
@@ -143,8 +177,8 @@ describe('reducer', () => {
       vote: {
         pair: ['Trainspotting', '28 Days Later'],
         tally: {Trainspotting: 1},
-        round: 1
       },
+      round: 1,
       myVote: {
         entry: 'Trainspotting',
         round: 1

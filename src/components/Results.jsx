@@ -20,43 +20,49 @@ export const Results = React.createClass({
   getVotesBlockWidth: function(entry) {
     return (this.getVotes(entry) * VOTE_WIDTH_PERCENT) + '%';
   },
+  getButtonWidth: function(winner) {
+    return this.props.winner ? '100%' : '50%';
+  },
   render: function() {
-    return this.props.winner ?
-      <Winner ref="winner" winner={this.props.winner} /> :
+    return (
       <div className="results">
-        <div className="tally">
-          {this.getPair().map(entry =>
-            <div key={entry} className="entry">
-              <h1>{entry}</h1>
-              <div className="voteVisualization"
-                   style={{width: this.getVotesBlockWidth(entry)}}>
+        {this.props.winner ?
+        <Winner ref="winner" winner={this.props.winner} /> :
+          <div className="tally">
+            {this.getPair().map(entry =>
+              <div key={entry} className="entry">
+                <h1>{entry}</h1>
+                <div className="voteVisualization"
+                     style={{width: this.getVotesBlockWidth(entry)}}>
+                </div>
+                <div className="voteCount">
+                  {this.getVotes(entry)}
+                </div>
               </div>
-              <div className="voteCount">
-                {this.getVotes(entry)}
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+        </div>}
         <div className="management">
+          {this.props.winner ? null :
           <button ref="next"
                   className="next"
                   onClick={this.props.next}>
             Next
-          </button>
+          </button>}
           <button ref="restart"
                   className="restart"
+                  style={{width: this.getButtonWidth(this.props.winner)}}
                   onClick={this.props.restart}>
             Restart
           </button>
         </div>
-      </div>;
-  }
+      </div>
+  )}
 });
 
 function mapStateToProps(state) {
   return {
-    pair: state.getIn(['vote', 'pair']),
-    tally: state.getIn(['vote', 'tally']),
+    pair:   state.getIn(['vote', 'pair']),
+    tally:  state.getIn(['vote', 'tally']),
     winner: state.get('winner')
   };
 }
